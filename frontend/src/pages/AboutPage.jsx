@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowRight } from '@phosphor-icons/react';
+import { ArrowRight, ArrowSquareOut } from '@phosphor-icons/react';
 import BreathMark from '../components/BreathMark';
 
 function Section({ title, children, delay }) {
@@ -85,10 +85,10 @@ export default function AboutPage() {
 
       {/* SDG */}
       <Section title={t('about_sdg_title')} delay="160ms">
-        {/* SDG graphic (2.png) — hidden gracefully until the SDG image is supplied */}
+        {/* SDG graphic (sdgs.png) — hidden gracefully until the SDG image is supplied */}
         <div className="mb-5 flex justify-center">
           <img
-            src="/2.png"
+            src="/sdgs.png"
             alt="UN Sustainable Development Goals"
             className="w-full max-w-xl rounded-xl"
             onError={(e) => { e.currentTarget.style.display = 'none'; }}
@@ -108,8 +108,32 @@ export default function AboutPage() {
         </div>
       </Section>
 
+      {/* Our School — DPS International */}
+      <Section title={t('about_school_title')} delay="180ms">
+        <div className="flex flex-col gap-5">
+          {/* DPS image (2.png) — hidden gracefully until supplied */}
+          <div className="flex justify-center">
+            <img
+              src="/2.png"
+              alt="DPS International"
+              className="w-full max-w-xl rounded-xl"
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+            />
+          </div>
+          <p className="text-navy-600 dark:text-lightblue leading-relaxed">{t('about_school_body')}</p>
+          <a
+            href="https://www.dpsiedge.edu.in"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="self-start btn-primary px-5 py-2.5 text-sm inline-flex items-center gap-2"
+          >
+            {t('about_school_link')} <ArrowSquareOut size={16} weight="bold" />
+          </a>
+        </div>
+      </Section>
+
       {/* Credits + disclaimer */}
-      <div className="card bg-gradient-to-br from-navy-900 to-navy-700 text-white text-center animate-fade-up" style={{ animationDelay: '200ms' }}>
+      <div className="card bg-gradient-to-br from-navy-900 to-navy-700 text-white text-center animate-fade-up" style={{ animationDelay: '220ms' }}>
         <p className="text-sm text-lightblue/90 mb-1">{t('presented_by')}</p>
         <p className="text-2xl font-black mb-3">Ryan Tyagi</p>
         <p className="text-sm text-lightblue/80 max-w-md mx-auto">{t('about_credit')}</p>
