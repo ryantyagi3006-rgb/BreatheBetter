@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BreatheBetter – DPS International</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Liquid-glass refraction filter (Chromium). Warps the backdrop behind
+         any element using `backdrop-filter: url(#liquid-glass)` so content
+         appears to bend through real glass rather than just blur. -->
+    <svg aria-hidden="true" width="0" height="0" style="position:absolute;pointer-events:none">
+      <defs>
+        <filter id="liquid-glass" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="14" result="turb"/>
+          <feGaussianBlur in="turb" stdDeviation="1.4" result="soft"/>
+          <feDisplacementMap in="SourceGraphic" in2="soft" scale="34"
+                             xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
