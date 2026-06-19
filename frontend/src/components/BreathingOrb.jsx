@@ -2,6 +2,7 @@
 // `tone` switches the color story for status (normal/borderline/low) or neutral.
 const TONES = {
   neutral:    { from: '#185FA5', to: '#B5D4F4', glow: 'rgba(24,95,165,0.35)' },
+  brand:      { from: '#042C53', to: '#185FA5', glow: 'rgba(4,44,83,0.45)' },
   Normal:     { from: '#059669', to: '#6EE7B7', glow: 'rgba(5,150,105,0.40)' },
   Borderline: { from: '#D97706', to: '#FCD34D', glow: 'rgba(217,119,6,0.40)' },
   Low:        { from: '#DC2626', to: '#FCA5A5', glow: 'rgba(220,38,38,0.40)' },

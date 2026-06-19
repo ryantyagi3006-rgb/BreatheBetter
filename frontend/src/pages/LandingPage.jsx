@@ -49,7 +49,7 @@ export default function LandingPage() {
 
         {/* Hero visual */}
         <div className="flex justify-center animate-fade-in" style={{ animationDelay: '120ms' }}>
-          <BreathingOrb size={300} active tone="neutral">
+          <BreathingOrb size={300} active tone="brand">
             <img
               src="/favicon.svg"
               alt="BreatheBetter"
