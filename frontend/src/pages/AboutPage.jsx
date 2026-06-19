@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, ArrowSquareOut } from '@phosphor-icons/react';
 import BreathMark from '../components/BreathMark';
+import ExplainerVideo from '../components/ExplainerVideo';
 
 function Section({ title, children, delay }) {
   return (
@@ -15,12 +16,8 @@ function Section({ title, children, delay }) {
 export default function AboutPage() {
   const { t } = useTranslation();
 
-  const wiring = [
-    ['VCC', '5V'], ['GND', 'GND'], ['TRIG', 'D9'], ['ECHO', 'D10'],
-  ];
-
   return (
-    <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 py-10 flex flex-col gap-6">
+    <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 py-10 flex flex-col gap-6">
       {/* Header */}
       <div className="text-center flex flex-col items-center gap-3 animate-fade-up">
         <BreathMark className="w-14 h-14 text-navy-600 dark:text-lightblue" />
@@ -35,6 +32,9 @@ export default function AboutPage() {
         </div>
       </div>
 
+      {/* Explainer video — centrepiece */}
+      <ExplainerVideo />
+
       {/* Mission */}
       <Section title={t('about_mission_title')} delay="40ms">
         <div className="space-y-3 text-navy-600 dark:text-lightblue leading-relaxed">
@@ -42,45 +42,6 @@ export default function AboutPage() {
           <p>{t('about_body_2')}</p>
           <p>{t('about_body_3')}</p>
         </div>
-      </Section>
-
-      {/* Science */}
-      <Section title={t('about_science_title')} delay="80ms">
-        <div className="space-y-3 text-navy-600 dark:text-lightblue leading-relaxed">
-          <p>{t('about_science_1')}</p>
-          <ul className="space-y-2 mt-2">
-            {['fev1', 'fvc', 'ratio'].map(k => (
-              <li key={k} className="flex gap-3 items-start">
-                <span className="font-bold text-navy-700 dark:text-white min-w-[90px]">{t(k)}</span>
-                <span className="text-sm">{t('about_def_' + k)}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-
-      {/* Hardware */}
-      <Section title={t('about_hardware_title')} delay="120ms">
-        <p className="text-navy-600 dark:text-lightblue leading-relaxed mb-4">{t('about_hardware_1')}</p>
-        <div className="rounded-xl border border-navy-100 dark:border-white/10 overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-navy-50 dark:bg-white/5">
-                <th className="text-left font-semibold text-navy-600 dark:text-lightblue px-4 py-2">HC-SR04</th>
-                <th className="text-left font-semibold text-navy-600 dark:text-lightblue px-4 py-2">Arduino</th>
-              </tr>
-            </thead>
-            <tbody>
-              {wiring.map(([a, b]) => (
-                <tr key={a} className="border-t border-navy-100 dark:border-white/10">
-                  <td className="px-4 py-2 font-mono text-navy-900 dark:text-white">{a}</td>
-                  <td className="px-4 py-2 font-mono text-navy-900 dark:text-white">{b}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="text-xs text-navy-400 dark:text-lightblue/70 mt-3">{t('about_hardware_2')}</p>
       </Section>
 
       {/* SDG */}
