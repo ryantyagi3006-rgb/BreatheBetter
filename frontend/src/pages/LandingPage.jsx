@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plug, Wind, ChartLine, ArrowRight } from '@phosphor-icons/react';
+import { Plug, Wind, ChartLine, ArrowRight, FilePdf } from '@phosphor-icons/react';
 import { useApp } from '../context/AppContext';
 import BreathingOrb from '../components/BreathingOrb';
 import BreathMark from '../components/BreathMark';
@@ -46,6 +46,17 @@ export default function LandingPage() {
             </Link>
             <Link to="/about" className="btn-secondary px-7 py-3.5 text-base">{t('learn_more')}</Link>
           </div>
+
+          {/* One-click AQI / lung-health guide */}
+          <a
+            href="/BreatheBetter-AQI-Lung-Health-Guide.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 self-start text-sm font-medium text-navy-700 dark:text-lightblue bg-navy-100/60 dark:bg-white/10 hover:bg-navy-100 dark:hover:bg-white/15 rounded-full px-4 py-2.5 transition-colors animate-fade-up"
+            style={{ animationDelay: '240ms' }}
+          >
+            <FilePdf size={18} weight="bold" /> {t('aqi_guide_cta')} <ArrowRight size={14} weight="bold" />
+          </a>
         </div>
 
         {/* Hero visual */}
