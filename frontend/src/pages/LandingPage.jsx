@@ -50,10 +50,11 @@ export default function LandingPage() {
         {/* Hero visual */}
         <div className="flex justify-center animate-fade-in" style={{ animationDelay: '120ms' }}>
           <BreathingOrb size={300} active tone="neutral">
-            <div className="text-center">
-              <p className="text-4xl font-black">FEV1</p>
-              <p className="text-xs opacity-80 tracking-widest mt-1">/ FVC</p>
-            </div>
+            <img
+              src="/favicon.svg"
+              alt="BreatheBetter"
+              className="w-28 h-28 drop-shadow-lg"
+            />
           </BreathingOrb>
         </div>
       </section>
