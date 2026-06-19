@@ -32,6 +32,7 @@ export default function Navbar() {
     { to: '/', label: t('nav_home') },
     ...(user ? [{ to: '/dashboard', label: t('nav_dashboard') }, { to: '/history', label: t('nav_history') }] : []),
     { to: '/about', label: t('nav_about') },
+    { to: '/outreach', label: t('nav_outreach') },
     { to: '/safe-use', label: t('nav_safe_use') },
   ];
 

@@ -10,6 +10,7 @@ export default function Footer() {
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm">
           <Link to="/" className="text-navy-500 dark:text-lightblue hover:text-navy-800 dark:hover:text-white transition-colors">{t('nav_home')}</Link>
           <Link to="/about" className="text-navy-500 dark:text-lightblue hover:text-navy-800 dark:hover:text-white transition-colors">{t('nav_about')}</Link>
+          <Link to="/outreach" className="text-navy-500 dark:text-lightblue hover:text-navy-800 dark:hover:text-white transition-colors">{t('nav_outreach')}</Link>
           <Link to="/safe-use" className="text-navy-500 dark:text-lightblue hover:text-navy-800 dark:hover:text-white transition-colors">{t('nav_safe_use')}</Link>
           <Link to="/dashboard" className="text-navy-500 dark:text-lightblue hover:text-navy-800 dark:hover:text-white transition-colors">{t('nav_dashboard')}</Link>
         </div>
