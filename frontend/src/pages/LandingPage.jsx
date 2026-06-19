@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Plug, Wind, ChartLine, ArrowRight } from '@phosphor-icons/react';
 import { useApp } from '../context/AppContext';
 import BreathingOrb from '../components/BreathingOrb';
+import BreathMark from '../components/BreathMark';
 
 function FeatureCard({ Icon, title, body, delay }) {
   return (
@@ -50,11 +51,7 @@ export default function LandingPage() {
         {/* Hero visual */}
         <div className="flex justify-center animate-fade-in" style={{ animationDelay: '120ms' }}>
           <BreathingOrb size={300} active tone="brand">
-            <img
-              src="/favicon.svg"
-              alt="BreatheBetter"
-              className="w-28 h-28 drop-shadow-lg"
-            />
+            <BreathMark className="w-36 h-36 text-lightblue drop-shadow" />
           </BreathingOrb>
         </div>
       </section>
