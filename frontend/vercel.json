@@ -8,7 +8,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com wss://*.firebaseio.com; frame-src 'self' https://*.firebaseapp.com; object-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://acsbapp.com https://*.acsbapp.com https://*.acsbap.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.acsbapp.com; font-src 'self' data: https://fonts.gstatic.com https://*.acsbapp.com; img-src 'self' data: blob: https://*.acsbapp.com; media-src 'self' https://*.acsbapp.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com wss://*.firebaseio.com https://*.acsbapp.com https://*.acsbap.com; frame-src 'self' https://*.firebaseapp.com https://*.acsbapp.com; object-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
         },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
