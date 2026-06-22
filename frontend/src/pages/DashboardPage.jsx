@@ -19,9 +19,9 @@ function Stepper({ step }) {
         <div key={i} className="flex items-center gap-2 sm:gap-4">
           <div className="flex items-center gap-2">
             <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
-              i <= step ? 'bg-navy-900 dark:bg-navy-500 text-white' : 'bg-navy-100 dark:bg-white/10 text-navy-400 dark:text-lightblue/50'
+              i <= step ? 'bg-navy-900 dark:bg-navy-500 text-white' : 'bg-navy-100 dark:bg-white/10 text-navy-600 dark:text-lightblue/80'
             }`}>{i < step ? <Check size={14} weight="bold" /> : i + 1}</span>
-            <span className={`text-xs font-medium hidden sm:block ${i <= step ? 'text-navy-900 dark:text-white' : 'text-navy-400 dark:text-lightblue/50'}`}>{label}</span>
+            <span className={`text-xs font-medium hidden sm:block ${i <= step ? 'text-navy-900 dark:text-white' : 'text-navy-500 dark:text-lightblue/80'}`}>{label}</span>
           </div>
           {i < steps.length - 1 && <span className={`w-6 sm:w-12 h-0.5 rounded ${i < step ? 'bg-navy-900 dark:bg-navy-500' : 'bg-navy-100 dark:bg-white/10'}`} />}
         </div>

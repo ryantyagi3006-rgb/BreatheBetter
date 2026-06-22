@@ -21,7 +21,7 @@ export default function TestOverlay({ open, stepTitle, stepMsg, progress }) {
             style={{ width: `${progress ?? 0}%`, background: '#185FA5', transition: 'width 0.4s linear' }}
           />
         </div>
-        <p className="text-xs text-navy-400 dark:text-navy-400">{Math.round(progress ?? 0)}%</p>
+        <p className="text-xs text-navy-500 dark:text-lightblue">{Math.round(progress ?? 0)}%</p>
       </div>
     </div>
   );

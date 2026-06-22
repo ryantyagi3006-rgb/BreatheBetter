@@ -66,7 +66,7 @@ export default function Navbar() {
 
         {/* Right controls */}
         <div className="flex items-center gap-2">
-          <button onClick={toggleLang} className="btn-secondary text-xs px-3 py-2 hidden sm:block" aria-label="Toggle language">
+          <button onClick={toggleLang} className="btn-secondary text-xs px-3 py-2 hidden sm:block" aria-label={i18n.language === 'en' ? 'Switch to Hindi' : 'Switch to English'}>
             {i18n.language === 'en' ? 'हिन्दी' : 'EN'}
           </button>
           <button onClick={toggleDark} className="btn-secondary px-3 py-2 flex items-center" aria-label="Toggle dark mode">
@@ -118,7 +118,7 @@ export default function Navbar() {
             </button>
           )}
           <div className="flex gap-2 mt-2">
-            <button onClick={toggleLang} className="btn-secondary text-xs flex-1 sm:hidden">
+            <button onClick={toggleLang} className="btn-secondary text-xs flex-1 sm:hidden" aria-label={i18n.language === 'en' ? 'Switch to Hindi' : 'Switch to English'}>
               {i18n.language === 'en' ? 'हिन्दी' : 'English'}
             </button>
             {user && <button onClick={signOut} className="btn-secondary text-xs flex-1 sm:hidden">{t('sign_out')}</button>}

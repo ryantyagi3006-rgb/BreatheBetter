@@ -21,7 +21,7 @@ function DocCard({ icon: Icon, title, desc, topics, file, delay }) {
         <ul className="flex flex-col gap-1.5">
           {topics.map((tp, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-navy-700 dark:text-lightblue">
-              <CheckCircle size={16} weight="fill" className="text-navy-500 dark:text-navy-400 mt-0.5 flex-shrink-0" />
+              <CheckCircle size={16} weight="fill" className="text-navy-500 dark:text-navy-300 mt-0.5 flex-shrink-0" />
               {tp}
             </li>
           ))}

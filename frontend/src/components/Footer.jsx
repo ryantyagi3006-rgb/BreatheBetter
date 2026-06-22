@@ -17,7 +17,7 @@ export default function Footer() {
         <p className="text-xs text-navy-400 dark:text-lightblue/80 font-semibold max-w-md inline-flex items-center gap-1.5 justify-center">
           <Warning size={14} weight="fill" className="flex-shrink-0" /> {t('disclaimer')}
         </p>
-        <p className="text-xs text-navy-300 dark:text-navy-400 italic">{t('footer_sig')}</p>
+        <p className="text-xs text-navy-500 dark:text-lightblue/80 italic">{t('footer_sig')}</p>
       </div>
     </footer>
   );

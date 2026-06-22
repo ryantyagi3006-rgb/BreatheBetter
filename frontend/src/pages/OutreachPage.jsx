@@ -47,7 +47,7 @@ export default function OutreachPage() {
         <ul className="flex flex-col gap-3">
           {['outreach_aim_1', 'outreach_aim_2', 'outreach_aim_3'].map(k => (
             <li key={k} className="flex items-start gap-3">
-              <CheckCircle size={20} weight="fill" className="text-navy-500 dark:text-navy-400 mt-0.5 flex-shrink-0" />
+              <CheckCircle size={20} weight="fill" className="text-navy-500 dark:text-navy-300 mt-0.5 flex-shrink-0" />
               <span className="text-navy-600 dark:text-lightblue leading-relaxed">{t(k)}</span>
             </li>
           ))}
@@ -109,7 +109,7 @@ export default function OutreachPage() {
 
         <div className="mt-5 text-sm text-lightblue/80 space-y-1">
           <p><a href={MAILTO} className="hover:text-white transition-colors">{EMAIL}</a></p>
-          <p className="text-xs text-lightblue/60">{t('outreach_tariff')}</p>
+          <p className="text-xs text-lightblue/80">{t('outreach_tariff')}</p>
         </div>
       </div>
     </div>
