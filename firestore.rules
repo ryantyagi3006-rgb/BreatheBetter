@@ -1,0 +1,37 @@
+rules_version = '2';
+
+// BreatheBetter Firestore security rules.
+// The `results` collection holds health data (FEV1/FVC) + the owner's email,
+// so access is restricted to the authenticated owner only. The client-side
+// `where('uid','==', uid)` filter is NOT a security boundary — these rules are.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /results/{resultId} {
+      // A user may only read documents they own.
+      allow read: if request.auth != null
+                  && resource.data.uid == request.auth.uid;
+
+      // A user may only create a result for themselves, with validated shape.
+      allow create: if request.auth != null
+                    && request.resource.data.uid == request.auth.uid
+                    && request.resource.data.email == request.auth.token.email
+                    && request.resource.data.fev1 is number
+                    && request.resource.data.fvc is number
+                    && request.resource.data.ratio is number
+                    && request.resource.data.status is string
+                    && request.resource.data.readings is list
+                    && request.resource.data.keys().hasOnly(
+                         ['uid','email','fev1','fvc','ratio','status','readings','calibration_factor','timestamp']);
+
+      // Results are immutable from the client. Deletion is handled on request
+      // (see Privacy Policy) rather than self-service, to keep records tamper-proof.
+      allow update, delete: if false;
+    }
+
+    // Default deny — nothing else is readable or writable.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -45,6 +45,7 @@ export default function ExplainerVideo() {
               className="absolute inset-0 w-full h-full border-0"
               loading="lazy"
               allow="autoplay; fullscreen"
+              sandbox="allow-scripts"
             />
           </div>
         </div>

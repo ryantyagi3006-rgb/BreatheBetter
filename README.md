@@ -6,7 +6,9 @@
 
 ## Overview
 
-BreatheBetter connects to a custom HC-SR04 ultrasonic spirometer via USB (Arduino) and measures FVC and FEV1 by tracking how far water rises in a sealed tube when a user exhales. Results are displayed in real-time, saved to a Supabase database, and visualised with a flow-volume curve.
+BreatheBetter connects to a custom HC-SR04 ultrasonic spirometer via USB (Arduino) and measures FVC and FEV1 by tracking how far water rises in a sealed tube when a user exhales. Results are displayed in real-time, saved to **Firebase (Firestore)**, and visualised with a flow-volume curve.
+
+The app is a static, single-page React application — there is no custom server. Authentication and data storage are handled directly by Firebase from the browser, secured by Firestore security rules.
 
 ---
 
@@ -15,40 +17,32 @@ BreatheBetter connects to a custom HC-SR04 ultrasonic spirometer via USB (Arduin
 | Layer | Technology |
 |---|---|
 | Frontend | React 18, Vite, Tailwind CSS, Recharts, i18next |
-| Backend | Node.js, Express |
-| Auth | JWT (issued by backend, verified on every API call) |
-| Database | Supabase (PostgreSQL) |
+| Auth | Firebase Authentication (email/password) |
+| Database | Firebase Firestore |
 | Serial | Web Serial API (browser-native, Chrome/Edge only) |
-| Deployment | Vercel (frontend) + Railway or Render (backend) |
+| Icons / i18n | Phosphor icons, i18next (English + Hindi) |
+| Deployment | Vercel (static frontend) |
 
 ---
 
-## Supabase setup
+## Firebase setup
 
-1. Create a new Supabase project at [supabase.com](https://supabase.com).
-2. Enable **Email/Password** auth under Authentication → Providers.
-3. Run this SQL in the Supabase SQL Editor:
+1. Create a project at [console.firebase.google.com](https://console.firebase.google.com).
+2. **Authentication → Sign-in method →** enable **Email/Password**.
+3. **Firestore Database →** create a database.
+4. Put the project's web config into `frontend/src/lib/firebase.js` (the `apiKey`, `authDomain`, `projectId`, etc.). These web values are public identifiers, not secrets — access is controlled by the rules below.
+5. **Deploy the security rules** (this is what actually protects the data):
 
-```sql
-create table results (
-  id            uuid primary key default gen_random_uuid(),
-  user_id       uuid references auth.users(id) on delete cascade,
-  email         text,
-  fev1          numeric(5,3),
-  fvc           numeric(5,3),
-  ratio         numeric(5,2),
-  status        text,
-  readings      jsonb default '[]',
-  calibration_factor numeric(8,4) default 1.0,
-  created_at    timestamptz default now()
-);
-
--- Row-level security: users can only read/write their own rows
-alter table results enable row level security;
-create policy "Own results" on results using (auth.uid() = user_id);
+```bash
+npm install -g firebase-tools
+firebase login
+firebase use --add        # select your project
+firebase deploy --only firestore:rules
 ```
 
-4. Copy your **Project URL** and **service_role** key from Settings → API.
+The rules live in [`firestore.rules`](firestore.rules) and restrict every `results` document to its authenticated owner. **Do not leave Firestore in test mode** — that exposes all users' health data.
+
+6. *(Recommended)* Enable **Firebase App Check** to stop non-app clients from hitting your backend, and confirm **Authentication → Settings → Authorized domains** lists only your domains.
 
 ---
 
@@ -56,34 +50,18 @@ create policy "Own results" on results using (auth.uid() = user_id);
 
 ### Prerequisites
 - Node.js 18+
-- Google Chrome or Microsoft Edge (Web Serial API)
-- Arduino connected via USB with the HC-SR04 sketch uploaded
+- Google Chrome or Microsoft Edge (Web Serial API is Chromium-only)
+- An Arduino connected via USB with the HC-SR04 sketch uploaded
 
-### 1. Clone and install
+### Run it
 
 ```bash
-# Backend
-cd backend
-cp .env.example .env   # fill in your Supabase credentials + JWT_SECRET
-npm install
-npm run dev            # runs on :4000
-
-# Frontend (new terminal)
 cd frontend
 npm install
-npm run dev            # runs on :5173
+npm run dev            # http://localhost:5173 (open in Chrome/Edge)
 ```
 
-### 2. Environment variables
-
-**backend/.env**
-```
-PORT=4000
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=eyJ...
-JWT_SECRET=some-long-random-string
-FRONTEND_URL=http://localhost:5173
-```
+There are no environment variables to configure — the Firebase web config is in `frontend/src/lib/firebase.js`.
 
 ---
 
@@ -144,28 +122,30 @@ After uploading, open the Serial Monitor at 9600 baud to verify cm values are pr
 
 1. **Baseline** (2.5 s) — sensor reads resting water level (highest cm value = lowest water).
 2. **Exhale** (5 s) — user blows into tube; water rises, sensor reads lower cm values. All readings are timestamped.
-3. **FVC** = peak volume computed from maximum water rise across full 5 s.
+3. **FVC** = peak volume computed from maximum water rise across the full 5 s.
 4. **FEV1** = peak volume from readings in the first 1 000 ms only — a real time-based measurement.
 5. **FEV1/FVC ratio** determines status: ≥ 70 % Normal, 60–70 % Borderline, < 60 % Low.
 
-Volume formula: `V = min(height / MAX_HEIGHT, 1.0) × 5.0` scaled to realistic FVC range, multiplied by optional calibration factor.
+Volume formula: `V = min(height / MAX_HEIGHT, 1.0) × 5.0` scaled to a realistic FVC range, multiplied by an optional calibration factor.
 
 ---
 
-## Deployment
+## Deployment (Vercel)
 
-### Frontend → Vercel
-```bash
-cd frontend
-npm run build
-# Push to GitHub, then import into Vercel.
-# Set VITE_API_URL to your Railway/Render backend URL.
-```
+1. Push to GitHub.
+2. Import the repo at [vercel.com](https://vercel.com) and set **Root Directory** to `frontend`.
+3. Deploy. Security headers (CSP etc.) are configured in [`frontend/vercel.json`](frontend/vercel.json).
 
-### Backend → Railway or Render
-- Point root to `backend/`
-- Start command: `npm start`
-- Add all env vars from `.env.example`
+Every push to `main` auto-deploys. Remember to also deploy the Firestore rules (see Firebase setup) — they are not part of the Vercel deploy.
+
+---
+
+## Security
+
+- Firestore access is owner-only, enforced by [`firestore.rules`](firestore.rules) — the client-side query filter is convenience, not security.
+- Security headers (Content-Security-Policy, HSTS, etc.) are set in `frontend/vercel.json`.
+- The embedded explainer runs in a sandboxed iframe.
+- The Firebase web config in the source is a public identifier, not a secret.
 
 ---
 
