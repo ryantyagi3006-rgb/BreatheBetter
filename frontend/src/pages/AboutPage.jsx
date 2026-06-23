@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, ArrowSquareOut } from '@phosphor-icons/react';
 import BreathMark from '../components/BreathMark';
-import ExplainerVideo from '../components/ExplainerVideo';
 
 function Section({ title, children, delay }) {
   return (
@@ -32,8 +31,15 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Explainer video — centrepiece */}
-      <ExplainerVideo />
+      {/* Featured statement — centrepiece */}
+      <section className="glass-card text-center animate-fade-up" style={{ animationDelay: '20ms' }}>
+        <p className="text-xs font-semibold tracking-[0.22em] uppercase text-navy-500 dark:text-lightblue/80">
+          {t('about_statement_eyebrow')}
+        </p>
+        <p className="text-lg sm:text-xl text-navy-700 dark:text-lightblue leading-relaxed mt-4 max-w-3xl mx-auto">
+          {t('about_statement')}
+        </p>
+      </section>
 
       {/* Mission */}
       <Section title={t('about_mission_title')} delay="40ms">
